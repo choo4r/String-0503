@@ -6,23 +6,30 @@ using namespace testing;
 class stringFixture : public Test {
 public:
 	Similarity sim;
+	StringResult result;
 
+	int  getLenthScore(string str1, string str2) {
+		return sim.lengthCheck(str1, str2);
+	}
 };
 
-TEST(string, checkLength)
+TEST_F(stringFixture, checkLength)
 {
-	Similarity sim;
-	int expected = sim.lengthCheck("ABCD", "DDDD");
+	int expected = 0;
+	expected = getLenthScore("ABCD", "DDDD");
 	EXPECT_EQ(60, expected);
 
-	expected = sim.lengthCheck("ABCD", "BB");
+	expected = getLenthScore("ABCD", "DD");
 	EXPECT_EQ(0, expected);
 
-	expected = sim.lengthCheck("ABCD", "AAA");
-	EXPECT_EQ(40, expected);
+	expected = getLenthScore("ABCDEF", "DDDD");
+	EXPECT_EQ(30, expected);
 
-	expected = sim.lengthCheck("ABCD", "AAAAAA");
+	expected = getLenthScore("ABCD", "DDDDD");
 	EXPECT_EQ(45, expected);
+
+	expected = getLenthScore("ABCD", "DDDDDD");
+	EXPECT_EQ(30, expected);
 }
 
 int main() {

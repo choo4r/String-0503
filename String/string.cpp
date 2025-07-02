@@ -1,8 +1,13 @@
+#include <stdexcept>
 #include <string>
 #include <cmath>
-#include <iostream>
 
-using std::string;
+using namespace std;
+
+struct StringResult {
+	int score = 0;
+	int result = 0;
+};
 
 class Similarity {
 public:
@@ -11,5 +16,13 @@ public:
 		int denominator = std::min(str1.length(), str2.length());
 
 		return (1 - ((double)gab / (double)denominator)) * 60;
+	}
+
+	void assertIllegalArgument(const string& inputString)
+	{
+		for (char ch : inputString) {
+			if (ch >= 'A' && ch <= 'Z') continue;
+			throw invalid_argument("Must be uppercase letter");
+		}
 	}
 };
