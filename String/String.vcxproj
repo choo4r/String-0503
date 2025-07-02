@@ -127,7 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="string.cpp" />
-    <ClCompile Include="string_test.cpp" />
+    <ClCompile Include="string_test.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
