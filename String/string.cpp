@@ -1,8 +1,10 @@
 #include <stdexcept>
 #include <string>
 #include <cmath>
+#include <set>
 
 using namespace std;
+using std::set;
 
 struct StringResult {
 	int score = 0;
@@ -18,11 +20,25 @@ public:
 		return (1 - ((double)gab / (double)denominator)) * 60;
 	}
 
-	void assertIllegalArgument(const string& inputString)
-	{
-		for (char ch : inputString) {
-			if (ch >= 'A' && ch <= 'Z') continue;
-			throw invalid_argument("Must be uppercase letter");
+	double containCheck(const string& str1, const string& str2) {
+		set<char> alphabets = getAlphabets(str1 + str2);
+		int totalcnt = alphabets.size();
+
+		int samecnt = 0;
+		for (char ch : alphabets) {
+			if (str1.find(ch) == string::npos) continue;
+			if (str2.find(ch) == string::npos) continue;
+			samecnt++;
 		}
+
+		return (double)samecnt / (double)totalcnt * 40;
 	}
+
+	set<char> getAlphabets(const string& str) {
+		set<char> alphabets;
+		for (char ch : str)
+			alphabets.insert(ch);
+		return alphabets;
+	}
+
 };
